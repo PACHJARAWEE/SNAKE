@@ -1,5 +1,5 @@
 # Snake Inspire Robot
-* [ใบเสนอราคา](wiki/Snake-Inspire-Robot#ใบเสนอราคา)
+* [ใบเสนอราคา]([wiki/Snake-Inspire-Robot#ใบเสนอราคา](https://github.com/PACHJARAWEE/SNAKE.wiki.git))
 ## ขอบเขตของงาน
 * [ ] ประยุกต์ใช้ algorihm ทำ cpg ของงู มาใช้ควบคุมหุ่นให้สามารถเคลื่อนที่ในพื้นที่ทดลองที่กำหนดไว้ได้
 * [ ] ใช้หุ่น ACM-R5 ในโปรแกรม CoppeliaSim เป็นตัวทดลอง
