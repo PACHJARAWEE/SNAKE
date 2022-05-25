@@ -7,7 +7,7 @@
 * [X] จำลองพื้นที่ในการทำงานการทำงานบนพื้นผิวเรียบ, ลื่น, ขรุขระ, พื้นที่แคบ, รู โดยให้งูเลื่อยผ่านพื้นที่เหล่านี้พร้อมกับปรับการทำงานให้เข้ากับสถานการณ์ที่กำหนดใด้
 
 ## หลักการทำงานเลียนแบบ
-* [Coding](https://github.com/PACHJARAWEE/SNAKE/wiki/How-snake-works%3F)
+* [Code](https://github.com/PACHJARAWEE/SNAKE/wiki/How-snake-works%3F)
 * [ACM R5H](https://github.com/PACHJARAWEE/SNAKE/wiki/Environment-CoppeliaSim#acm-r5h)
 * [Scene](https://github.com/PACHJARAWEE/SNAKE/wiki/Environment-CoppeliaSim#%E0%B8%9E%E0%B8%B7%E0%B9%89%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%88%E0%B8%B3%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%97%E0%B8%B3%E0%B8%87%E0%B8%B2%E0%B8%99)
 
