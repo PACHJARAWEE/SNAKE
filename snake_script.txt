@@ -1,0 +1,104 @@
+function sysCall_init()
+
+    graph=sim.getObject('/Graph')
+    
+    model=sim.getObject('.')
+    modules={}
+    for i=1,9,1 do
+        local m={}
+        if i~=9 then
+            m.vJoint=sim.getObject('./vJoint',{index=i-1})
+            m.hJoint=sim.getObject('./hJoint',{index=i-1})
+        end
+        if i==1 then
+            m.body=model
+        else
+            m.body=sim.getObject('./_bodyRespondable',{index=i-2})
+        end
+        m.bodyS=sim.getObject('./body',{index=i-1})
+        modules[i]=m
+    end
+    joint1Vel=sim.addGraphStream(graph,'Output 1','deg/s',0,{1,0,0})
+    joint2Vel=sim.addGraphStream(graph,'Output 2','deg/s',0,{0,1,0})
+    joint0Vel=sim.addGraphStream(graph,'Output 0','deg/s',0,{1,0,1})
+    
+    moduleCount=8
+    interModuleDelay=6
+    verticalMovementTable={}
+    horizontalMovementTable={}
+    tableLength=moduleCount*interModuleDelay
+    for i=1,tableLength,1 do
+        table.insert(verticalMovementTable,0)
+        table.insert(horizontalMovementTable,0)
+    end
+
+    s = 0
+    c = {0,0,0}
+    o = {0,0,0}
+    maxHAngle=45
+    
+    alpha =1.5
+    phi = math.pi/8
+    mew = 0.9
+    A  = 0.01
+    B = 0.001
+ 
+    w0 = {0.1,0.1,0.001}
+    w0_af = w0
+    
+end
+
+function sysCall_sensing()
+    -- put your sensing code here
+    sim.setGraphStreamValue(graph,joint1Vel,o[1])
+    sim.setGraphStreamValue(graph,joint2Vel,o[2])
+    sim.setGraphStreamValue(graph,joint0Vel,o[3])
+end
+
+function sysCall_actuation()
+
+    angle = sim.getJointVelocity(modules[1].vJoint)
+    print("angle is ",angle)
+
+    -- Adaptive CPG
+    w = {alpha*math.cos(phi), alpha*math.sin(phi), alpha*(-math.sin(phi)), alpha*math.cos(phi)}
+    phi = phi+(mew*w0_af[1]*o[2]*w[2]*o[3])
+    --print("phi is ",phi)
+    
+    w0_af[1] = w0_af[1]-A*o[3]*o[1]-B*(w0_af[1]-w0[1])
+    w0_af[2] = w0_af[2]-A*o[3]*o[1]-B*(w0_af[2]-w0[2])
+    w0_af[3] = w0_af[3]+A*o[3]*angle-B*(w0_af[3]-w0[3])
+    
+    c[1] = w[1]*o[1] + w[2]*o[2] + w0_af[1]*o[3]
+    c[2] = w[3]*o[1] + w[4]*o[2]
+    c[3] = w0_af[2]*o[1] + w0_af[3]*angle
+    
+    -- sigmoid run
+    o[1] = 1/(1+math.exp(-c[1]))
+    o[2] = 1/(1+math.exp(-c[2]))
+    o[3] = 1/(1+math.exp(-c[3]))
+    --print("o1 is ",o[1])
+    --print("o2 is ",o[2])
+    
+
+    -- Movement generation:
+    s = s+sim.getSimulationTimeStep()
+    --print("s is ",s)
+    vPos=maxHAngle*(math.pi/180)*math.sin(s*2.5)*o[1]
+    --print("vPos is ",vPos)
+    hPos=0
+    
+    table.remove(verticalMovementTable,tableLength)
+    table.remove(horizontalMovementTable,tableLength)
+    table.insert(verticalMovementTable,1,vPos)
+    table.insert(horizontalMovementTable,1,hPos)
+    --print("verticalMovementTable is ",verticalMovementTable)
+    
+    -- Apply joint values:
+    for i=1,#modules-1,1 do
+        sim.setJointTargetPosition(modules[i].vJoint,verticalMovementTable[(i-1)*interModuleDelay+1])
+        sim.setJointTargetPosition(modules[i].hJoint,horizontalMovementTable[(i-1)*interModuleDelay+1])
+        --print("verticalMovementTable is ",verticalMovementTable[(i-1)*interModuleDelay+1])
+        --print("horizontalMovementTable is ",horizontalMovementTable[(i-1)*interModuleDelay+1])
+    end
+end
