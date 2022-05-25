@@ -12,7 +12,7 @@
 * [Scene](https://github.com/PACHJARAWEE/SNAKE/wiki/Environment-CoppeliaSim#%E0%B8%9E%E0%B8%B7%E0%B9%89%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%88%E0%B8%B3%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%97%E0%B8%B3%E0%B8%87%E0%B8%B2%E0%B8%99)
 
 ## นำเสนอ
-* Presentation](https://www.canva.com/design/DAFBhu1iLQM/hOVvvNVeQ8rysx_9yLzolg/edit?utm_content=DAFBhu1iLQM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+* [Presentation](https://www.canva.com/design/DAFBhu1iLQM/hOVvvNVeQ8rysx_9yLzolg/edit?utm_content=DAFBhu1iLQM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ## สมาชิกในทีม
    +  นางสาวกิติญาณี  สีสิงห์      6252500046
